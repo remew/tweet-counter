@@ -62,6 +62,9 @@ let params = {
 	count: config.get,
 };
 
+let today = new Date();
+today.setDate(today.getDate() - 1);
+
 Promise.all([
 		new Promise((resolve, reject) => {
 			fs.readFile(config.template, 'utf-8', (error, text) => {
@@ -72,7 +75,7 @@ Promise.all([
 				resolve(text);
 			});
 		}),
-		countTodayTweets(new Date(), params, {count: 0, retweetCount: 0})
+		countTodayTweets(today, params, {count: 0, retweetCount: 0})
 ])
 .then((results) => {
 	let template = results[0];
