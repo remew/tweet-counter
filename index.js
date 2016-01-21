@@ -82,11 +82,11 @@ Promise.all([
 		count: count.count,
 		retweet: count.retweetCount,
 	};
-	let tweet = template.replace(/\$\{([^}]*)\}/g, (match, key) => {
+	let text = template.replace(/\$\{([^}]*)\}/g, (match, key) => {
 		return variables[key] || '';
 	});
 	//console.log(tweet);
-	tweet(tweet);
+	tweet(text);
 })
 .catch((error) => {
 	tweet('@_remew_ Something was happen in counting tweets.');
