@@ -90,6 +90,6 @@ Promise.all([
 })
 .catch((error) => {
 	tweet('@_remew_ Something was happen in counting tweets.');
-	fs.writeFileSync('./error' + (+new Date()), JSON.stringify(error));
+	fs.writeFileSync('./error' + (+new Date()), JSON.stringify({error}));
 });
 
