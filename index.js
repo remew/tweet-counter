@@ -88,7 +88,7 @@ Promise.all([
 	let text = template.replace(/\$\{([^}]*)\}/g, (match, key) => {
 		return variables[key] || '';
 	});
-	console.log('tweet: ', tweet);
+	console.log('tweet: ', text);
 	tweet(text);
 })
 .catch((error) => {
