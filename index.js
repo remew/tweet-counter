@@ -92,7 +92,7 @@ Promise.all([
 	tweet(text);
 })
 .catch((error) => {
-	tweet('@_remew_ Something was happen in counting tweets.');
+	tweet(`@${screenName} Something was happen in counting tweets.`);
 	console.log(JSON.stringify({error}));
 	fs.writeFileSync('./error' + (+new Date()), JSON.stringify({error}));
 });
