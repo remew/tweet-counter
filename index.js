@@ -88,11 +88,12 @@ Promise.all([
 	let text = template.replace(/\$\{([^}]*)\}/g, (match, key) => {
 		return variables[key] || '';
 	});
-	//console.log(tweet);
+	console.log('tweet: ', tweet);
 	tweet(text);
 })
 .catch((error) => {
 	tweet('@_remew_ Something was happen in counting tweets.');
+	console.log(JSON.stringify({error}));
 	fs.writeFileSync('./error' + (+new Date()), JSON.stringify({error}));
 });
 
