@@ -1,8 +1,8 @@
 'use strict';
 
-let fs = require('fs');
-let Twitter = require('twitter');
-let config = require('./config.js');
+const fs = require('fs');
+const Twitter = require('twitter');
+const config = require('./config.js');
 
 /**
  * Keys has four items.
@@ -11,14 +11,14 @@ let config = require('./config.js');
  * access_token_key
  * access_token_secret
  */
-var client = new Twitter(config.Keys);
+const client = new Twitter(config.Keys);
 
-let tweet = (text) => {
+const tweet = (text) => {
 	// There is no error handling...
 	client.post('statuses/update', {status: text}, (error, tweet) => {});
 };
 
-let getTimeline = (params) => {
+const getTimeline = (params) => {
 	return new Promise((resolve, reject) => {
 		client.get('statuses/user_timeline', params, (error, tweets) => {
 			if (error) {
@@ -30,12 +30,12 @@ let getTimeline = (params) => {
 	});
 };
 
-let countTodayTweets = (today, params, result) => {
+const countTodayTweets = (today, params, result) => {
 	return getTimeline(params).then((tweets) => {
-		let length = tweets.length;
+		const length = tweets.length;
 		for (let i = 0; i < length; i++) {
-			let tweet = tweets[i];
-			let date = new Date(tweet.created_at);
+			const tweet = tweets[i];
+			const date = new Date(tweet.created_at);
 			if (date.getDate() !== today.getDate()) {
 				return Promise.resolve(result);
 			}
@@ -56,13 +56,13 @@ let countTodayTweets = (today, params, result) => {
 	});
 };
 
-let screenName = config.name;
-let params = {
+const screenName = config.name;
+const params = {
 	screen_name: screenName,
 	count: config.get,
 };
 
-let today = new Date();
+const today = new Date();
 today.setDate(today.getDate() - 1);
 
 Promise.all([
@@ -78,14 +78,14 @@ Promise.all([
 		countTodayTweets(today, params, {count: 0, retweetCount: 0})
 ])
 .then((results) => {
-	let template = results[0];
-	let count = results[1];
-	let variables = {
+	const template = results[0];
+	const count = results[1];
+	const variables = {
 		me: `@${screenName}`,
 		count: count.count,
 		retweet: count.retweetCount,
 	};
-	let text = template.replace(/\$\{([^}]*)\}/g, (match, key) => {
+	const text = template.replace(/\$\{([^}]*)\}/g, (match, key) => {
 		return variables[key] || '';
 	});
 	console.log('tweet: ', text);
