@@ -5,6 +5,7 @@ module.exports = {
     },
     "extends": "eslint:recommended",
     "rules": {
+        "no-console": ["error", {"allow": ["error"]}],
         "indent": ["error", 4],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
